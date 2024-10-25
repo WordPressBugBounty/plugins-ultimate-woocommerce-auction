@@ -5,7 +5,7 @@
  *  Plugin URI: http://auctionplugin.net
  *  Description: Awesome plugin to host auctions with WooCommerce on your WordPress site and sell anything you want.
  *  Author: Nitesh Singh
- *  Version: 2.4.2
+ *  Version: 2.4.3
  *  Text Domain: ultimate-woocommerce-auction
  *  Domain Path: languages
  *  License: GPLv2
@@ -72,7 +72,7 @@ if ( in_array( 'woocommerce/woocommerce.php', $blog_plugins ) || isset( $site_pl
 		if ( ! class_exists( 'Ultimate_WooCommerce_Auction_Free' ) ) {
 			/* Required minimums and constants */
 			if ( ! defined( 'WOO_UA_VERSION' ) ) {
-				define( 'WOO_UA_VERSION', '2.4.2' ); // plugin version
+				define( 'WOO_UA_VERSION', '2.4.3' ); // plugin version
 			}
 			if ( ! defined( 'WOO_UA_DIR' ) ) {
 				define( 'WOO_UA_DIR', __DIR__ ); // plugin dir
@@ -237,7 +237,16 @@ if ( in_array( 'woocommerce/woocommerce.php', $blog_plugins ) || isset( $site_pl
 							?>
 					<div class="notice notice-info">
 						<div class="get_uwa_pro" style="display:flex;justify-content: space-evenly;">
-							<a rel="nofollow" href="https://auctionplugin.net?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=learn-more-button" target="_blank"> <img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/UWCA_row.jpg" alt="" /> </a>
+						
+							
+							<?php /*<a rel="nofollow" href="https://auctionplugin.net?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=learn-more-button" target="_blank"> 
+								<img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/UWCA_row.jpg" alt="" /> 
+							</a>*/ ?>
+
+							<a rel="nofollow" href="https://auctionplugin.net/pricing/?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=festive-offer-button" target="_blank"> 
+								<img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/offer-banner.jpg" alt="" /> 
+							</a>
+
 							<p class="uwa_hide_free">
 								<?php
 								// printf(__('<a href="%s">Hide Notice</a>', 'ultimate-woocommerce-auction'),esc_attr(add_query_arg('uwa_pro_add_plugin_notice_ignore', '0')));

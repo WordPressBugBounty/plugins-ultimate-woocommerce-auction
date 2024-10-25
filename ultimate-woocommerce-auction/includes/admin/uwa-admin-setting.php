@@ -166,7 +166,12 @@ if ( $uwa_login_register_msg_enabled == 'yes' || $uwa_login_register_msg_enabled
 				?>
 					<div class="notice notice-info">
 						<div class="get_uwa_pro" style="display:flex;justify-content: space-evenly;">
-							<a rel="nofollow" href="https://auctionplugin.net?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=learn-more-button" target="_blank"> <img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/UWCA_row.jpg" alt="" /> </a>
+							
+							<?php /*<a rel="nofollow" href="https://auctionplugin.net?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=learn-more-button" target="_blank"> <img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/UWCA_row.jpg" alt="" /> </a>
+							*/ ?>
+							<a rel="nofollow" href="https://auctionplugin.net/pricing/?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=festive-offer-button" target="_blank"> 
+								<img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/offer-banner.jpg" alt="" /> 
+							</a>
 							<p class="uwa_hide_free">
 							<?php
 							// printf(__('<a href="%s">Hide Notice</a>', 'ultimate-woocommerce-auction'),esc_attr(add_query_arg('uwa_pro_add_plugin_notice_ignore', '0')));
@@ -187,7 +192,12 @@ if ( $uwa_login_register_msg_enabled == 'yes' || $uwa_login_register_msg_enabled
 	<?php esc_html__( 'If you like <a href="https://wordpress.org/support/plugin/ultimate-woocommerce-auction/reviews?rate=5#new-post" target="_blank"> our plugin working </a> with WooCommerce, please leave us a <a href="https://wordpress.org/support/plugin/ultimate-woocommerce-auction/reviews?rate=5#new-post" target="_blank">★★★★★</a> rating. A huge thanks in advance!', 'ultimate-woocommerce-auction' ); ?>	 
 	</div>
 	<div class="uwa_setting_right">
-		
+
+
+			<div class="box_get_premium">
+					<a rel="nofollow" href="https://auctionplugin.net/pricing/?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=festive-offer-button" target="_blank"> <img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/festival-banner-vertical.jpg" alt="" /> </a>
+			</div>
+
 			<div class="box_like_plugin">
 				<div class="like_plugin">
 						<h2 class="title_uwa_setting"><?php esc_html_e( 'Like this plugin?', 'ultimate-woocommerce-auction' ); ?></h2>
@@ -234,7 +244,7 @@ if ( $uwa_login_register_msg_enabled == 'yes' || $uwa_login_register_msg_enabled
 				</div>	
 			</div>
 			
-				<div class="box_get_premium">
+			<div class="box_get_premium">
 					<a rel="nofollow" href="https://auctionplugin.net?utm_source=woo plugin&utm_medium=vertical banner&utm_campaign=learn-more-button" target="_blank"> <img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/UWCA_col.jpg" alt="" /> </a>
 			</div>
 			

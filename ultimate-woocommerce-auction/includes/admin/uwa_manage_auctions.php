@@ -490,7 +490,13 @@ function woo_ua_list_page_handler_display() {
 					?>
 					<div class="notice notice-info">
 						<div class="get_uwa_pro" style="display:flex;justify-content: space-evenly;">
-							<a rel="nofollow" href="https://auctionplugin.net?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=learn-more-button" target="_blank"> <img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/UWCA_row.jpg" alt="" /> </a>
+							
+							<?php /*<a rel="nofollow" href="https://auctionplugin.net?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=learn-more-button" target="_blank"> <img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/UWCA_row.jpg" alt="" /> </a> */ ?>
+
+							<a rel="nofollow" href="https://auctionplugin.net/pricing/?utm_source=woo plugin&utm_medium=admin notice&utm_campaign=festive-offer-button" target="_blank"> 
+								<img src="<?php echo esc_url( WOO_UA_ASSETS_URL ); ?>/images/offer-banner.jpg" alt="" /> 
+							</a>
+
 							<p class="uwa_hide_free">
 							<?php
 							// printf(__('<a href="%s">Hide Notice</a>', 'ultimate-woocommerce-auction'),esc_attr(add_query_arg('uwa_pro_add_plugin_notice_ignore', '0')));
