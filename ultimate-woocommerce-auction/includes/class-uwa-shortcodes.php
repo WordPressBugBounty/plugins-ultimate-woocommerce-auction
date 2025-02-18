@@ -112,7 +112,8 @@ class UWA_Shortcode extends WC_Shortcodes {
 				$args_toptext = array(
 					'total'    => $products->found_posts,
 					// 'per_page' => $products->get( 'posts_per_page' ),
-					'per_page' => $limit,
+					'per_page' => $limit,					
+					'orderedby' => $orderby,
 					'current'  => max( 1, get_query_var( 'paged' ) ),
 				);
 				wc_get_template( 'loop/result-count.php', $args_toptext );
