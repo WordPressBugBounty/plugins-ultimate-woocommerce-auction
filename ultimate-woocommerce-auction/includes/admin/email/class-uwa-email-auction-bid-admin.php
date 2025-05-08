@@ -26,7 +26,7 @@ if ( ! class_exists( 'UWA_Email_Auction_Bid_Admin' ) ) {
 		public function __construct() {
 			$this->id             = 'woo_ua_email_action_bid_intimation_admin';
 			$this->title          = __( 'Ultimate Auction - Admin Bid Notification', 'ultimate-woocommerce-auction' );
-			$this->description    = __( '​Send bid email notification to admin when Bidder place a bid.', 'ultimate-woocommerce-auction' );
+			$this->description    = __( 'Send bid email notification to admin when Bidder place a bid.', 'ultimate-woocommerce-auction' );
 			$this->heading        = __( 'Bid item on', 'ultimate-woocommerce-auction' ) . ' {site_title}';
 			$this->subject        = __( 'Bidder placed a bid on', 'ultimate-woocommerce-auction' ) . ' {site_title}';
 			$this->template_html  = 'emails/placed-bid-admin.php';

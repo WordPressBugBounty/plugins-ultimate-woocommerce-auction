@@ -181,17 +181,33 @@ class Woo_Ua_Logs_List_Table extends WP_List_Table {
 
 				foreach ( $results as $result ) {
 
-					$userid      = $result->userid;
-					$userdata    = get_userdata( $userid );
+					$userid = $result->userid;
+
+					/* $userdata    = get_userdata( $userid );
 					$bidder_name = $userdata->user_nicename;
 					if ( $userdata ) {
-
 						$bidder_name = "<a href='" . esc_url( get_edit_user_link( $userid ) ) . "' target='_blank'>" . $bidder_name . '</a>';
 
 					} else {
-
 						$bidder_name = 'User id:' . $userid;
-					}
+					} */
+
+					$obj_user = get_userdata($result->userid);
+					$bidder_name = "";
+					if ($obj_user) {					
+						$bidder_name = $obj_user->display_name;	
+					}	
+
+	                if ($bidder_name) {
+						$bidder_name = "<a href='".get_edit_user_link( $userid )."' target='_blank'>" .
+							$bidder_name . "</a>";
+
+					} else {
+						// $bidder_name = 'User id:'.$result->userid;
+						$bidder_name = "<a href='".get_edit_user_link( $userid )."' target='_blank'>" .
+							$obj_user->user_login . "</a>";
+	                } 
+
 					$bid_amt      = wc_price( $result->bid );
 					$bid_time     = mysql2date( $datetimeformat, $result->date );
 					$row_bidders .= '<tr>';

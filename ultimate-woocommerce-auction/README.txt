@@ -2,8 +2,8 @@
 Contributors: nitesh_singh
 Tags: auction, bidding, bids, woocommerce auction, woocommerce auction plugin, wordpress auction
 Requires at least: 5.5
-Tested up to: 6.7.2
-Stable tag: 2.4.5
+Tested up to: 6.8.1
+Stable tag: 2.4.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -479,6 +479,15 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 
 == Changelog ==
 
+= 2.4.6 =
+
+1. Improvement:	
+
+	In the manage auctions section, the bidder's name will now be shown using display_name instead of nice_name.
+
+	Verified the compatibility of the Ultimate Auction for WooCommerce plugin with the most recent versions of WordPress and WooCommerce.
+
+
 = 2.4.5 =
 
 1. Fix:
@@ -504,9 +513,8 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 	Updated: New Sample images.
 
 
-
-
 = 2.4.2 =
+
 1. Fix:
 
 	Resolved an issue with adding the winning auction product to the cart. Now, when the winner clicks the 'Pay Now' button in the winning email, the auction product is successfully added to the cart and the user is redirected to the checkout page as expected.
@@ -517,8 +525,8 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 	Improved Security for Auction Settings: Updated the escape function for one of the auction settings to enhance security and prevent potential vulnerabilities.
 
 
-
 = 2.4.1 =
+
 1. Fix:
 
 	Resolved an issue with saving prices for simple products. The regular price and sale price are now correctly saved when creating a simple product in the admin dashboard.
@@ -526,15 +534,15 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 
 
 = 2.4.0 =
+
 1. Fix:
 
 	Reviewed and updated all functions and WP_Ajax calls to include nonce verification and user permission checks.
 	Updated the function names and class names to ensure uniqueness and prevent conflicts with other plugins or themes.
 	Reviewed and corrected the SQL queries to use wpdb::prepare() properly, ensuring protection against SQL injection vulnerabilities.
 
-
-
 = 2.3.9 =
+
 1. Fix:
 
 	All variables and options are now properly escaped when echoed to ensure security and prevent potential vulnerabilities.
@@ -545,11 +553,13 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 
 
 = 2.3.8 =
+
 1. Fix:
 
 	All variables and options are now properly escaped when echoed to ensure security and prevent potential vulnerabilities.
 
 = 2.3.7 =
+
 1. Fix:
 
 	All functions utilizing POST/GET/REQUEST/FILE calls have been sanitized, validated, and escaped to meet WordPress.org security guidelines.
@@ -624,7 +634,6 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 	We have fixed the warning "Undefined array key uwa-new-redirect" which was displayed after user logged in to the site.
 
     Error "Undefined variable $notices" was displayed on auction detail page. This issue has now been fixed.
-
 
 
 = 2.2.9 =

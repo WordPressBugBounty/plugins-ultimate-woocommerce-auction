@@ -5,13 +5,13 @@
  *  Plugin URI: http://auctionplugin.net
  *  Description: Awesome plugin to host auctions with WooCommerce on your WordPress site and sell anything you want.
  *  Author: Nitesh Singh
- *  Version: 2.4.5
+ *  Version: 2.4.6
  *  Text Domain: ultimate-woocommerce-auction
  *  Domain Path: languages
  *  License: GPLv2
  *  Copyright 2025 Nitesh Singh
  *  WC requires at least: 4.0.0
- *  WC tested up to: 9.6.2
+ *  WC tested up to: 9.8.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
