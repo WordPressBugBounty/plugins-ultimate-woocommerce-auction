@@ -1,4 +1,5 @@
 <?php
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -703,6 +704,7 @@ class UWA_Admin {
 	 * @access public
 	 */
 	function uwa_render_auction_log() {
+
 		global $woocommerce, $post;
 			$product_data = wc_get_product( $post->ID );
 		?>
@@ -713,37 +715,52 @@ class UWA_Admin {
 				
 				<?php if ( $product_data->get_woo_ua_auction_fail_reason() == '1' ) { ?>
 				
-							<p><?php esc_html_e( 'Auction Expired without any bids.', 'ultimate-woocommerce-auction' ); ?></p>
+					<p><?php esc_html_e( 'Auction Expired without any bids.', 'ultimate-woocommerce-auction' ); 
+						?></p>
 					
 				<?php } elseif ( $product_data->get_woo_ua_auction_fail_reason() == '2' ) { ?>
 				
-							<p><?php esc_html_e( 'Auction Expired without reserve price met', 'ultimate-woocommerce-auction' ); ?></p>
+					<p><?php esc_html_e( 'Auction Expired without reserve price met', 'ultimate-woocommerce-auction' ); ?></p>
 							
-					<?php
-				}
-
-				if ( $product_data->get_woo_ua_auction_closed() == '3' ) {
-					?>
+				<?php } if ( $product_data->get_woo_ua_auction_closed() == '3' ) { ?>
 				
 					<p><?php esc_html_e( 'This Auction Product has been sold for buy now price', 'ultimate-woocommerce-auction' ); ?>: <span>
 					<p><span><?php echo wp_kses_post( wc_price( $product_data->get_regular_price() ) ); ?></span></p>
 				
-				<?php } elseif ( $product_data->get_woo_ua_auction_current_bider() ) { ?>
+				<?php } elseif ( $product_data->get_woo_ua_auction_current_bider() ) {
 
-					<p><?php esc_html_e( 'Highest bidder was', 'ultimate-woocommerce-auction' ); ?>: <span class="maxbider">
-						<a href='<?php echo esc_url( get_edit_user_link( $product_data->get_woo_ua_auction_current_bider() ) ); ?>'>
-					<?php echo esc_html( get_userdata( $product_data->get_woo_ua_auction_current_bider() )->display_name ); ?></a>
-					</span>
+					$uwa_winner_id = $product_data->get_woo_ua_auction_current_bider();	
+					$obj_user = get_userdata( $uwa_winner_id );
+
+					$winner_name = "";
+					if ( is_object($obj_user) ) {
+						$winner_name = !empty($obj_user->display_name) ? $obj_user->display_name : $obj_user->user_login;						
+					}
+					?>
+
+					<p><?php esc_html_e( 'Highest bidder was', 'ultimate-woocommerce-auction' ); ?>: 
+						<span class="maxbider">
+							<a href='<?php echo esc_url( get_edit_user_link( $uwa_winner_id ) ); ?>'>
+								<?php echo esc_html( $winner_name ); ?>						
+							</a>
+						</span>
 					</p>
 					
-					<p><?php esc_html_e( 'Highest bid was', 'ultimate-woocommerce-auction' ); ?>: <span class="maxbid" >
-					<?php echo wp_kses_post( wc_price( $product_data->get_woo_ua_current_bid() ) ); ?></span></p>
+					<p>
+						<?php esc_html_e( 'Highest bid was', 'ultimate-woocommerce-auction' ); ?>: 
+						<span class="maxbid" >
+							<?php echo wp_kses_post( wc_price( $product_data->get_woo_ua_current_bid() ) ); ?>
+						</span>
+					</p>
 
 					<?php if ( $product_data->get_woo_ua_auction_payed() ) { ?>
 				
-					<p><?php esc_html_e( 'Order has been paid, order ID is', 'ultimate-woocommerce-auction' ); ?>: <span>
-					<a href='post.php?&action=edit&post=<?php echo esc_attr( $product_data->get_woo_ua_order_id() ); ?>'>
-						<?php echo esc_html( $product_data->get_woo_ua_order_id() ); ?></a></span></p>
+					<p><?php esc_html_e( 'Order has been paid, order ID is', 'ultimate-woocommerce-auction' ); ?>: 
+						<span>
+							<a href='post.php?&action=edit&post=<?php echo esc_attr( $product_data->get_woo_ua_order_id() ); ?>'>
+							<?php echo esc_html( $product_data->get_woo_ua_order_id() ); ?></a>
+						</span>
+					</p>
 					
 						<?php
 					} elseif ( $product_data->get_woo_ua_order_id() ) {

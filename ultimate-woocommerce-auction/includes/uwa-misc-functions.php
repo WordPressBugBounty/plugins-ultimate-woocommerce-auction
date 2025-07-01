@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Extra Functions file
  *
@@ -7,18 +8,11 @@
  * @since 1.0
  * @return void
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Get Auction List By User Id
- *
- * @package Ultimate Auction For WooCommerce
- * @author Nitesh Singh
- * @since 1.0
- * @return void
- */
 function get_uwa_wp_timezone() {
 	$uwa_time_zone = wp_timezone();
 	return $uwa_time_zone;
@@ -213,8 +207,20 @@ function uwa_user_display_name( $user_id ) {
 		$user_name = get_userdata($user_id)->display_name;
 	}*/
 
-	$user_name = get_userdata( $user_id )->display_name;
-	return $user_name;
+	if ( $user_id > 0 ) {
+
+		$obj_user = get_userdata($user_id);
+
+		if ( is_object($obj_user) ) {
+					
+			$user_name = !empty($obj_user->display_name) ? $obj_user->display_name : $obj_user->user_login;
+	
+			return $user_name;
+		}
+	}
+
+	$no_user_found = __( 'no-user', 'ultimate-woocommerce-auction' );
+	return $no_user_found;
 }
 
 // list bidders Ajax callback - 'See More' link on 'Your Auctions/User Auctions' pages
