@@ -3,7 +3,7 @@ Contributors: nitesh_singh
 Tags: auction, bidding, bids, woocommerce auction, woocommerce auction plugin, wordpress auction
 Requires at least: 5.5
 Tested up to: 6.8.1
-Stable tag: 2.4.7
+Stable tag: 2.4.8
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -478,6 +478,13 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 7. Frontend: Single product page example
 
 == Changelog ==
+
+= 2.4.8 =
+
+1. Fix:
+	
+	We have fixed the email preview functionality for all auction-related emails.
+
 
 = 2.4.7 =
 
