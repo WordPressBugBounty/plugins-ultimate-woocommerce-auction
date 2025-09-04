@@ -223,28 +223,31 @@ function uwa_user_display_name( $user_id ) {
 	return $no_user_found;
 }
 
-// list bidders Ajax callback - 'See More' link on 'Your Auctions/User Auctions' pages
-function uwa_see_more_bids_ajax_callback() {
-	global $wpdb;
 
-	$tbl_log        = $wpdb->prefix . 'woo_ua_auction_log';
-	$datetimeformat = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+/**
+ * list bidders Ajax callback - 'See More' link on 'Your Auctions/User Auctions' pages
+ *
+ */
+add_action( 'wp_ajax_uwa_see_more_bids_ajax', 'uwa_see_more_bids_ajax_callback' );
+
+function uwa_see_more_bids_ajax_callback() {
+
+	global $wpdb;
 
 	if ( ! isset( $_POST['ua_nonce'] ) || ! wp_verify_nonce( $_POST['ua_nonce'], 'uwaajax-nonce' ) ) {
 		wp_send_json_error( 'Nonce verification failed.' );
 	}
 
 	if ( sanitize_key( $_POST['show_rows'] == -1 ) ) {
-		/*$query_bidders = 'SELECT * FROM '.$wpdb->prefix.'woo_ua_auction_log WHERE auction_id ='.$_POST['auction_id'].' ORDER BY date DESC';*/
 
-		$query_bidders = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woo_ua_auction_log WHERE auction_id = %d ORDER BY date DESC", absint( $_POST['auction_id'] ) ) );
+		$query_bidders = $wpdb->get_results($wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woo_ua_auction_log WHERE auction_id = %d ORDER BY date DESC", absint( $_POST['auction_id'] ) ) );
 
 		$response['uwa_label_text'] = __( 'See less.', 'ultimate-woocommerce-auction' );
 
-	} else {
-		/*$query_bidders = 'SELECT * FROM '.$wpdb->prefix.'woo_ua_auction_log WHERE auction_id ='.$_POST['auction_id'].' ORDER BY date DESC LIMIT 2';*/
+	} else {		
 
-		$query_bidders              = $wpdb->get_results($wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woo_ua_auction_log WHERE auction_id = %d ORDER BY date DESC LIMIT 2", absint( $_POST['auction_id'] )) );
+		$query_bidders = $wpdb->get_results($wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woo_ua_auction_log WHERE auction_id = %d ORDER BY date DESC LIMIT 2", absint( $_POST['auction_id'] )) );
+
 		$response['uwa_label_text'] = __( 'See more', 'ultimate-woocommerce-auction' );
 	}
 
@@ -264,39 +267,47 @@ function uwa_see_more_bids_ajax_callback() {
 
 	$results     = $query_bidders;
 	$row_bidders = '';
+
 	if ( ! empty( $results ) ) {
+
+		$datetimeformat = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
 
 		foreach ( $results as $result ) {
 
-				$userid      = $result->userid;
-				$userdata    = get_userdata( $userid );
-				$bidder_name = $userdata->user_nicename;
-			if ( $userdata ) {
+			$userid = $result->userid;
 
-				$bidder_name = "<a href='" . esc_url( get_edit_user_link( $userid ) ) . "' target='_blank'>" . $bidder_name . '</a>';
+			$obj_user = get_userdata($result->userid);
+			$bidder_name = "";
+			if ($obj_user) {					
+				$bidder_name = $obj_user->display_name;	
+			}	
+
+            if ($bidder_name) {
+				$bidder_name = "<a href='".get_edit_user_link( $userid )."' target='_blank'>" .
+					$bidder_name . "</a>";
 
 			} else {
-				$bidder_name = 'User id:' . $userid;
-			}
+				$bidder_name = "<a href='".get_edit_user_link( $userid )."' target='_blank'>" .
+					$obj_user->user_login . "</a>";
+            }
 
-				$bid_amt      = wc_price( $result->bid );
-				$bid_time     = mysql2date( $datetimeformat, $result->date );
-				$row_bidders .= '<tr>';
-				$row_bidders .= '<td>' . $bidder_name . ' </td>';
-				$row_bidders .= '<td>' . $bid_amt . '</td>';
-				$row_bidders .= '<td>' . $bid_time . '</td>';
-				$row_bidders .= '</tr>';
+			$bid_amt      = wc_price( $result->bid );
+			$bid_time     = mysql2date( $datetimeformat, $result->date );
+			$row_bidders .= '<tr>';
+			$row_bidders .= '<td>' . $bidder_name . ' </td>';
+			$row_bidders .= '<td>' . $bid_amt . '</td>';
+			$row_bidders .= '<td>' . $bid_time . '</td>';
+			$row_bidders .= '</tr>';
 
 		}
 
-			$row_bidders_final     = $row_bidders;
-			$response['bids_list'] = $row_bidders_final;
+		$row_bidders_final     = $row_bidders;
+		$response['bids_list'] = $row_bidders_final;
 
 	}
 
-		/*echo json_encode( $response );*/
+		/* echo json_encode( $response ); */
 		echo wp_json_encode( $response );
 		exit;
 }
-add_action( 'wp_ajax_uwa_see_more_bids_ajax', 'uwa_see_more_bids_ajax_callback' );
-add_action( 'wp_ajax_nopriv_uwa_see_more_bids_ajax', 'uwa_see_more_bids_ajax_callback' );
+
