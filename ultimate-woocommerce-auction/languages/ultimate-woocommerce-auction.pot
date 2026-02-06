@@ -224,6 +224,10 @@ msgstr ""
 msgid "<span class=\"woo-ua-winned-for winning_bid\">Winning Bid</span>: "
 msgstr ""
 
+#: includes/class-uwa-product.php:524
+msgid "Winning Bid"
+msgstr ""
+
 #: includes/class-uwa-product.php:528
 msgid "<span class=\"woo-ua-winned-for expired\">Auction Expired</span> "
 msgstr ""
@@ -1189,9 +1193,7 @@ msgstr ""
 msgid "Your name"
 msgstr ""
 
-#: templates\woocommerce\single-product\tabs\uwa-private-msg.php:41
-msgid "Your name"
-msgstr ""
+
 
 #: templates\woocommerce\single-product\tabs\uwa-private-msg.php:49
 msgid "Message Detail"
@@ -1271,4 +1273,36 @@ msgstr ""
 
 #: includes/admin/uwa-admin-setting.php:454
 msgid "Un-check this option if you directly want to redirect to the login & registration (my-account) page."
+msgstr ""
+
+#: ------------------------    New texts 2    -------------------------------
+
+
+#: includes/class-uwa-product.php:
+msgid "Reserve price Not met!"
+msgstr ""
+
+#: includes/class-uwa-product.php:
+msgid "Pending"
+msgstr ""
+
+#: includes/class-uwa-product.php:
+msgid "Auction Expired"
+msgstr ""
+
+#: templates/woocommerce/myaccount/uwa-myauction.php:
+#: templates/woocommerce/myaccount/uwa-myauction-watchlist.php:
+msgid "Go shop"
+msgstr ""
+
+#: templates/woocommerce/myaccount/uwa-myauction-setting.php:
+msgid "Save changes"
+msgstr ""
+
+#: templates\woocommerce\single-product\tabs\uwa-private-msg.php:
+msgid "Your Name"
+msgstr ""
+
+#: templates\woocommerce\single-product\tabs\uwa-private-msg.php:
+msgid "you@example.com"
 msgstr ""

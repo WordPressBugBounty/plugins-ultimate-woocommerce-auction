@@ -31,13 +31,17 @@ $user_login = isset( $user->data->user_login ) ? $user->data->user_login : '';
 			<tr>
 				<td><?php esc_html_e( 'Email:', 'ultimate-woocommerce-auction' ); ?></td>
 				<td class="name">
-				<input type="email" placeholder="you@example.com" class="uwa_pri_email" id="uwa_pri_email"  value="<?php echo esc_attr( $user_email ); ?>" name="uwa_pri_email" ></br>
+
+				<input type="email" placeholder="<?php esc_html_e( 'you@example.com', 'ultimate-woocommerce-auction' ); ?>" 
+					class="uwa_pri_email" id="uwa_pri_email"  value="<?php echo esc_attr( $user_email ); ?>" name="uwa_pri_email" ></br>
 				<span id="error_email" class="error_forms"></span>
 				</td>
 			</tr>
 			<?php } else { ?>
 				<input type="hidden" placeholder="<?php esc_html_e( 'Your Name', 'ultimate-woocommerce-auction' ); ?>" class="uwa_pri_name" id="uwa_pri_name" name="uwa_pri_name" value="<?php echo esc_attr( $user_login ); ?>" >
-				<input type="hidden" placeholder="you@example.com" class="uwa_pri_email" id="uwa_pri_email"  value="<?php echo esc_attr( $user_email ); ?>" name="uwa_pri_email" >
+
+				<input type="hidden" placeholder="<?php esc_html_e( 'you@example.com', 'ultimate-woocommerce-auction' ); ?>" 
+					class="uwa_pri_email" id="uwa_pri_email"  value="<?php echo esc_attr( $user_email ); ?>" name="uwa_pri_email" >
 			<?php } ?>
 			<tr>
 				<td><?php esc_html_e( 'Message:', 'ultimate-woocommerce-auction' ); ?></td>

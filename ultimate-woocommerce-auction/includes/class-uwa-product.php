@@ -341,13 +341,32 @@ if ( ! class_exists( 'WC_Product_Auction' ) && class_exists( 'WC_Product' ) ) {
 
 					$winneruser = $this->get_woo_ua_auction_current_bider();
 				if ( $winneruser ) {
-					WC()->mailer();
-					do_action( 'uwa_won_email_bidder', $id, $winneruser );
-					do_action( 'uwa_won_email_admin', $id, $winneruser );
-					// update winner mail sent meta data
-					update_post_meta( $id, 'woo_ua_winner_mail_sent', '1' );
-				}
+                    // Prevent duplicate emails in concurrent requests.
+					$meta_key = 'woo_ua_winner_mail_sent';
+					$sent_at  = current_time( 'timestamp', true );
 
+					// Prevent duplicate emails in concurrent requests.
+					if ( ! add_post_meta( $id, $meta_key, $sent_at, true ) ) {
+
+						// Already sent or in progress.
+						if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+							error_log(
+								sprintf(
+									'[UWA] Winner email already sent. Product ID: %d, Time: %s',
+									$id,
+									current_time( 'mysql' )
+								)
+							);
+						}
+
+						return true;
+					}
+
+                    WC()->mailer();
+                    do_action( 'uwa_won_email_bidder', $id, $winneruser );
+                    do_action( 'uwa_won_email_admin', $id, $winneruser );
+                    // We keep the meta value as a timestamp (set above). Admin actions can delete this meta to re-send if needed.
+				}
 					return true;
 
 			} else {
