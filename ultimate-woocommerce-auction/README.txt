@@ -2,8 +2,8 @@
 Contributors: nitesh_singh
 Tags: auction, bidding, bids, woocommerce auction, woocommerce auction plugin, wordpress auction
 Requires at least: 5.5
-Tested up to: 6.9
-Stable tag: 2.5.2
+Tested up to: 6.9.4
+Stable tag: 2.5.3
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -478,6 +478,14 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 7. Frontend: Single product page example
 
 == Changelog ==
+
+= 2.5.3 =	
+
+1. Improvements:	
+
+	Updated the My Account page by removing auction settings for frontend users.
+
+	Enhanced and updated the Ultimate Auction for WooCommerce plugin for compatibility with the latest WordPress and WooCommerce updates.
 
 = 2.5.2 =
 

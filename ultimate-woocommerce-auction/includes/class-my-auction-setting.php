@@ -1,30 +1,38 @@
 <?php
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 // Exit if accessed directly
+
 class UWA_My_Auction_Setting_Endpoint {
+	
 	/**
 	 * Custom endpoint name.
 	 *
 	 * @var string
 	 */
 	public static $endpoint = 'my-auction-setting';
+
 	/**
 	 * Plugin actions.
 	 */
 	public function __construct() {
+
 		// Actions used to insert a new endpoint in the WordPress.
-		add_action( 'init', array( $this, 'add_endpoints' ) );
-		add_filter( 'query_vars', array( $this, 'add_query_vars' ), 0 );
+		/* add_action( 'init', array( $this, 'add_endpoints' ) );
+		add_filter( 'query_vars', array( $this, 'add_query_vars' ), 0 ); */
+		
 		// Change the My Accout page title.
-		add_filter( 'the_title', array( $this, 'endpoint_title' ) );
-		// Insering your new tab/page into the My Account page.
-		add_filter( 'woocommerce_account_menu_items', array( $this, 'new_menu_items' ) );
+		/* add_filter( 'the_title', array( $this, 'endpoint_title' ) ); */
+
+		// Insering your new tab/page into the My Account page.		
+		/* add_filter( 'woocommerce_account_menu_items', array( $this, 'new_menu_items' ) );
 		add_action( 'woocommerce_account_' . self::$endpoint . '_endpoint', array( $this, 'endpoint_content' ) );
 
-		add_action( 'template_redirect', array( $this, 'update_uwa_account_details' ) );
+		add_action( 'template_redirect', array( $this, 'update_uwa_account_details' ) ); */
 	}
+
 	/**
 	 * Register new endpoint to use inside My Account page.
 	 *
@@ -33,6 +41,7 @@ class UWA_My_Auction_Setting_Endpoint {
 	public function add_endpoints() {
 		add_rewrite_endpoint( self::$endpoint, EP_ROOT | EP_PAGES );
 	}
+
 	/**
 	 * Add new query var.
 	 *
@@ -43,6 +52,7 @@ class UWA_My_Auction_Setting_Endpoint {
 		$vars[] = self::$endpoint;
 		return $vars;
 	}
+
 	/**
 	 * Set endpoint title.
 	 *
@@ -59,6 +69,7 @@ class UWA_My_Auction_Setting_Endpoint {
 		}
 		return $title;
 	}
+
 	/**
 	 * Insert the new endpoint into the My Account menu.
 	 *
@@ -132,6 +143,7 @@ class UWA_My_Auction_Setting_Endpoint {
 		flush_rewrite_rules();
 	}
 }
+
 new UWA_My_Auction_Setting_Endpoint();
 // Flush rewrite rules on plugin activation.
 register_activation_hook( __FILE__, array( 'UWA_My_Auction_Setting_Endpoint', 'install' ) );
