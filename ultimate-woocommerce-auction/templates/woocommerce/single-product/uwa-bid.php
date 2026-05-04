@@ -20,6 +20,10 @@ $timezone_string              = get_option( 'timezone_string' ) ? get_option( 't
 $uwa_enable_bid_place_warning = get_option( 'uwa_enable_bid_place_warning' );
 $uwa_product_condition        = $product->get_woo_ua_condition();
 
+
+$uwa_reserved = $product->is_woo_ua_reserved();
+$uwa_reserve_met = $product->is_woo_ua_reserve_met();
+
 ?>
 <p class="uwa_auction_condition">
 	<strong>
@@ -54,25 +58,68 @@ $uwa_product_condition        = $product->get_woo_ua_condition();
 			<strong><?php esc_html_e( 'Timezone:', 'ultimate-woocommerce-auction' ); ?></strong>
 			<?php echo esc_attr( $timezone_string ); ?>
 		</p>
+
+
+		<?php 
+
+		if (get_option('uwa_hide_reserve_field', 'no') == 'no' && 
+			get_option('uwa_show_reserve_price', 'no') == 'no') { ?>
+
 			<div class="checkreserve">
-		<?php if ( ( $product->is_woo_ua_reserved() === true ) && ( $product->is_woo_ua_reserve_met() === false ) ) { ?>
-			<?php $reserve_text = __( 'price has not been met.', 'ultimate-woocommerce-auction' ); ?>
-				<p class="uwa_auction_reserve_not_met">
-					<?php $reserve_text_escaped = esc_html( $reserve_text ); ?>
-					<?php // Translators: Placeholder %s represents the reserve text. ?>
-					<strong><?php printf( esc_html__( 'Reserve %s', 'ultimate-woocommerce-auction' ), esc_html( $reserve_text_escaped ) ); ?></strong>
-				</p>	
-		<?php } ?>
-	
-	<?php if ( ( $product->is_woo_ua_reserved() === true ) && ( $product->is_woo_ua_reserve_met() === true ) ) { ?>
-			<?php $reserve_text = __( 'price has been met.', 'ultimate-woocommerce-auction' ); ?>
-			<p class="uwa_auction_reserve_met">
-				<?php $reserve_text_escaped = esc_html( $reserve_text ); ?>
-				<?php // Translators: Placeholder %s represents the reserve text. ?>
-				<strong><?php printf( esc_html__( 'Reserve %s', 'ultimate-woocommerce-auction' ), esc_html( $reserve_text_escaped ) ); ?></strong>
-			</p>
-	<?php } ?>
-	</div>
+				<?php 
+				if (($uwa_reserved === TRUE) && ($uwa_reserve_met === FALSE)) { 
+					
+					$reserve_text = __("price has not been met.", 'ultimate-woocommerce-auction'); ?>
+
+					<p class="uwa_auction_reserve_not_met">
+						<strong><?php printf(__('Reserve %s', 'ultimate-woocommerce-auction'), 
+							$reserve_text); ?></strong>
+					</p>	
+					<?php 
+				}
+				if (($uwa_reserved === TRUE) && ($uwa_reserve_met === TRUE)) { 
+					
+					$reserve_text = __("price has been met.", 'ultimate-woocommerce-auction'); ?>
+
+					<p class="uwa_auction_reserve_met">
+						<strong><?php printf(__('Reserve %s', 'ultimate-woocommerce-auction'), 
+							$reserve_text); ?></strong>
+					</p>
+					<?php 
+				} ?>
+			</div>
+
+			<?php 
+		} elseif (get_option('uwa_hide_reserve_field', 'no') == 'no' && 
+			get_option('uwa_show_reserve_price', 'no') == 'yes') { ?>
+
+			<div class="checkreserve">
+
+				<?php 
+				$reserve_price = wc_price($product->get_woo_ua_auction_reserved_price(), $args);
+
+				if (($uwa_reserved === TRUE) && ($uwa_reserve_met === FALSE)) { 
+					?>
+					<p class="uwa_auction_reserve_not_met">
+						<strong><?php printf(__('Reserve price (%s) has not been met.',
+							'ultimate-woocommerce-auction'), $reserve_price); ?></strong>
+					</p>
+				<?php 
+				}
+				if (($uwa_reserved === TRUE) && ($uwa_reserve_met === TRUE)) { 
+					?>
+					<p class="uwa_auction_reserve_met">
+						<strong><?php printf(__('Reserve price (%s) has been met.',
+							'ultimate-woocommerce-auction'), $reserve_price); ?></strong>
+					</p>
+					<?php 
+				} ?>
+
+			</div>
+
+			<?php 
+		}
+		?>	
 	
 	<?php do_action( 'ultimate_woocommerce_auction_before_bid_form' ); ?>
 	

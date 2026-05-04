@@ -102,6 +102,20 @@ if ( isset( $_POST['uwa-settings-submit'] ) && $_POST['uwa-settings-submit'] == 
 	} else {
 		update_option( 'uwa_login_register_msg_enabled', 'no' );
 	}
+
+	if (isset($_POST['uwa_hide_reserve_field'])) {	
+		update_option('uwa_hide_reserve_field', 'yes');
+	} else {
+		update_option('uwa_hide_reserve_field', 'no');
+	}
+
+	if (isset($_POST['uwa_show_reserve_price']) && absint($_POST['uwa_show_reserve_price']) == 1) {
+         update_option('uwa_show_reserve_price', 'yes');
+  	} else {
+      update_option('uwa_show_reserve_price', 'no');
+  	}
+
+
 }
 
 
@@ -134,9 +148,20 @@ if ( isset( $_POST['uwa-settings-submit'] ) && $_POST['uwa-settings-submit'] == 
 
 	$uwa_login_register_msg_enabled    = get_option( 'uwa_login_register_msg_enabled' );
 	$uwa_login_register_checked_enable = '';
-if ( $uwa_login_register_msg_enabled == 'yes' || $uwa_login_register_msg_enabled == false ) {
-	$uwa_login_register_checked_enable = 'checked';
-}
+	if ( $uwa_login_register_msg_enabled == 'yes' || $uwa_login_register_msg_enabled == false ) {
+		$uwa_login_register_checked_enable = 'checked';
+	}
+
+	$uwa_hide_reserve_field = get_option('uwa_hide_reserve_field', 'no');
+	$uwa_hide_reserve_field_enable = '';
+		if ($uwa_hide_reserve_field == 'yes') {
+			$uwa_hide_reserve_field_enable = 'checked';
+		}	
+	$uwa_show_reserve_price = get_option('uwa_show_reserve_price', 'no');
+	$uwa_show_reserve_price_field_enable = '';
+		if ($uwa_show_reserve_price == 'yes') {
+			$uwa_show_reserve_price_field_enable = 'checked';
+		}	
 
 
 ?>		
@@ -736,8 +761,27 @@ if ( $uwa_login_register_msg_enabled == 'yes' || $uwa_login_register_msg_enabled
 							<?php esc_html_e( 'This setting lets you enable an alert confirmation which is shown to user when they place a bid.', 'ultimate-woocommerce-auction' ); ?>
 						</span></a>		
 								</td>
-							</tr>  
+							</tr>
 
+                    <tr>
+                        <th>
+                            <label for="uwa_hide_reserve_field"><?php _e( 'Disable Specific field:', 'ultimate-woocommerce-auction' ); ?></label>
+                        </th>
+                           <td class="uwaforminp">
+                           	<input type="checkbox"  <?php echo $uwa_hide_reserve_field_enable; ?> name="uwa_hide_reserve_field"  id="uwa_hide_reserve_field" value="1"><?php _e('Reserve Price Text.', 'ultimate-woocommerce-auction');  ?>
+                        	</td>
+                     </tr>							
+
+                    <tr>
+                        <th>
+                            <label for="uwa_show_reserve_price"><?php _e( 'Enable Specific field:', 'ultimate-woocommerce-auction' ); ?></label>
+                        </th>
+                        <td class="uwaforminp">
+                            <input type="checkbox" <?php echo $uwa_show_reserve_price_field_enable; ?> 
+                                name="uwa_show_reserve_price"  id="uwa_show_reserve_price" value="1">
+                                <?php _e('Display reserve price amount in reserve price text.', 'ultimate-woocommerce-auction');  ?>
+                        </td>
+                    </tr> 
 
 
 							<!-- Timer and Soft Close / Avoid Sniping settings -->

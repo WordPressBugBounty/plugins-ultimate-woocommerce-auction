@@ -979,13 +979,49 @@ class UWA_Front {
 					$response[ $posts_id ]['wua_bid_value_inc'] = wc_price( $product_data->woo_ua_bid_value() );
 
 					$response[ $posts_id ]['add_to_cart_text'] = $product_data->add_to_cart_text();
-					if ( $product_data->is_woo_ua_reserved() === true ) {
+
+
+					/* if ( $product_data->is_woo_ua_reserved() === true ) {
 						if ( $product_data->is_woo_ua_reserve_met() === false ) {
-							$response[ $posts_id ]['wua_reserve'] = __( 'Reserve price has not been met.', 'ultimate-woocommerce-auction' );
+							$response[ $posts_id ]['wua_reserve'] = __( 'Reserve price has not been met.', 
+								'ultimate-woocommerce-auction' );
 						} elseif ( $product_data->is_woo_ua_reserve_met() === true ) {
-							$response[ $posts_id ]['wua_reserve'] = __( 'Reserve price has been met.', 'ultimate-woocommerce-auction' );
+							$response[ $posts_id ]['wua_reserve'] = __( 'Reserve price has been met.', 
+								'ultimate-woocommerce-auction' );
+						}
+					} */
+
+					if ($product_data->is_woo_ua_reserved() === TRUE) {
+
+						if (get_option('uwa_show_reserve_price', 'no') == 'yes') {
+							$reserve_price = (wc_price($product_data->get_woo_ua_auction_reserved_price(), 
+								$args));
+
+								if ($product_data->is_woo_ua_reserve_met() === FALSE) {
+
+									$not_met_txt = __("Reserve price " . "(" . $reserve_price . ")". " has not been met.", 'ultimate-woocommerce-auction');
+									$response[$posts_id]['wua_reserve'] = $not_met_txt;
+
+								} else if ($product_data->is_woo_ua_reserve_met() === TRUE) {
+
+									$met_txt = __("Reserve price " . "(" . $reserve_price . ")" . " has been met.", 'ultimate-woocommerce-auction');
+									$response[$posts_id]['wua_reserve'] = $met_txt;
+								}
+							}	
+						
+						if (get_option('uwa_hide_reserve_field', 'no') == 'no' && 
+								get_option('uwa_show_reserve_price', 'no') == 'no') {
+						
+							if ($product_data->is_woo_ua_reserve_met() === FALSE) {
+								$response[$posts_id]['wua_reserve'] = __("Reserve price has not been met.", 
+									'ultimate-woocommerce-auction');
+							} else if ($product_data->is_woo_ua_reserve_met() === TRUE) {
+								$response[$posts_id]['wua_reserve'] =__("Reserve price has been met.", 
+									'ultimate-woocommerce-auction');
+							}
 						}
 					}
+
 				}
 			}
 		}

@@ -1277,7 +1277,6 @@ msgstr ""
 
 #: ------------------------    New texts 2    -------------------------------
 
-
 #: includes/class-uwa-product.php:
 msgid "Reserve price Not met!"
 msgstr ""
@@ -1305,4 +1304,36 @@ msgstr ""
 
 #: templates\woocommerce\single-product\tabs\uwa-private-msg.php:
 msgid "you@example.com"
+msgstr ""
+
+#: templates/woocommerce/single-product/uwa-bid.php:
+msgid "Reserve price (%s) has not been met."
+msgstr ""
+
+#: templates/woocommerce/single-product/uwa-bid.php:
+msgid "Reserve price (%s) has been met."
+msgstr ""
+
+#: includes/class-uwa-front.php:
+msgid "Reserve price "
+msgstr ""
+
+#: includes/class-uwa-front.php:
+msgid " has not been met."
+msgstr ""
+
+#: includes/admin/uwa-admin-setting.php:
+msgid "Disable Specific field:"
+msgstr ""
+
+#: includes/admin/uwa-admin-setting.php:
+msgid "Reserve Price Text."
+msgstr ""
+
+#: includes/admin/uwa-admin-setting.php:
+msgid "Enable Specific field:"
+msgstr ""
+
+#: includes/admin/uwa-admin-setting.php:
+msgid "Display reserve price amount in reserve price text."
 msgstr ""
