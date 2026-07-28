@@ -5,7 +5,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 $user_id               = get_current_user_id();
 $my_auctions_watchlist = get_woo_ua_auction_watchlist_by_user( $user_id );
 
-if ( count( $my_auctions_watchlist ) > 0 ) { ?>
+$uwa_per_page     = apply_filters( 'woo_ua_myaccount_watchlist_per_page', 10 );
+$uwa_total_items  = count( $my_auctions_watchlist );
+$uwa_total_pages  = (int) ceil( $uwa_total_items / $uwa_per_page );
+$uwa_current_page = empty( get_query_var( 'my-auction-watchlist' ) ) ? 1 : absint( get_query_var( 'my-auction-watchlist' ) );
+if ( $uwa_current_page > $uwa_total_pages ) {
+	$uwa_current_page = $uwa_total_pages;
+}
+if ( $uwa_current_page < 1 ) {
+	$uwa_current_page = 1;
+}
+$my_auctions_watchlist = array_slice( $my_auctions_watchlist, ( $uwa_current_page - 1 ) * $uwa_per_page, $uwa_per_page );
+
+if ( $uwa_total_items > 0 ) { ?>
 <table class="shop_table shop_table_responsive">
 	<tr>
 		<th class="toptable"><?php esc_html_e( 'Image', 'ultimate-woocommerce-auction' ); ?></td>
@@ -61,14 +73,25 @@ if ( count( $my_auctions_watchlist ) > 0 ) { ?>
 			<?php
 		}
 	}
+	?>
+</table>
+<?php if ( $uwa_total_pages > 1 ) { ?>
+	<div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination">
+		<?php if ( 1 !== $uwa_current_page ) { ?>
+			<a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( wc_get_endpoint_url( 'my-auction-watchlist', $uwa_current_page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'ultimate-woocommerce-auction' ); ?></a>
+		<?php } ?>
+		<?php if ( $uwa_total_pages !== $uwa_current_page ) { ?>
+			<a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( wc_get_endpoint_url( 'my-auction-watchlist', $uwa_current_page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'ultimate-woocommerce-auction' ); ?></a>
+		<?php } ?>
+	</div>
+<?php }
 } else {
 	$shop_page_id  = wc_get_page_id( 'shop' );
 	$shop_page_url = $shop_page_id ? get_permalink( $shop_page_id ) : '';
 	?>
-			<div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">		
-			<a class="woocommerce-Button button" href="<?php echo esc_url( $shop_page_url ); ?>"><?php esc_html_e( 'Go shop', 'ultimate-woocommerce-auction' ); ?></a> 
+			<div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">
+			<a class="woocommerce-Button button" href="<?php echo esc_url( $shop_page_url ); ?>"><?php esc_html_e( 'Go shop', 'ultimate-woocommerce-auction' ); ?></a>
 			<?php esc_html_e( 'No Watchlist auctions available yet.', 'ultimate-woocommerce-auction' ); ?>
 		</div>
-	<?php } ?>  
-</table>
-<?php 
+<?php } ?>
+<?php

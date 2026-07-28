@@ -54,25 +54,9 @@ function get_woo_ua_auction_by_user( $user_id ) {
 	$new_auctionlist = [];
 
 	foreach ( $results as $var ) {
-		// Prepare the cache key for individual auction bids
-		$cache_key_2 = md5( 'auction_bid_' . $var->auction_id . '_' . $user_id );
-		$max_bid     = wp_cache_get( $cache_key_2, 'woo_ua_auction_logs_2' );
-
-		if ( false === $max_bid ) {
-			// Fetch the highest bid for the specific auction and user
-			$max_bid = $wpdb->get_var( $wpdb->prepare(
-				"SELECT bid FROM {$tbl_log} WHERE auction_id = %d AND userid = %d ORDER BY CAST(bid AS decimal(50,5)) DESC, date ASC LIMIT 1",
-				absint( $var->auction_id ), absint( $user_id )
-			));
-
-			// Cache the highest bid
-			if ( $max_bid ) {
-				wp_cache_set( $cache_key_2, $max_bid, 'woo_ua_auction_logs_2' );
-			}
-		}
-
-		// Assign the max_bid value
-		$var->max_bid = $max_bid;
+		// $var->max_bid already holds the user's highest bid for this auction
+		// (the `bid` column is a decimal type, so MAX(bid) in the query above
+		// is already numerically correct) - no per-auction query needed here.
 
 		// Get the product object
 		$product = wc_get_product( $var->auction_id );
@@ -84,13 +68,7 @@ function get_woo_ua_auction_by_user( $user_id ) {
 				$new_auctionlist[] = $var;
 			}
 		}
-
-		// Optionally delete the cache for this individual auction bid
-		wp_cache_delete( $cache_key_2, 'woo_ua_auction_logs_2' );
 	}
-
-	// Optionally delete the cache for the main query results
-	wp_cache_delete( $cache_key, 'woo_ua_auction_logs' );
 
 	return $new_auctionlist;
 }

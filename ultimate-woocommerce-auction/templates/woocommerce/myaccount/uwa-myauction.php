@@ -5,7 +5,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 $user_id     = get_current_user_id();
 $my_auctions = get_woo_ua_auction_by_user( $user_id );
 
-if ( count( $my_auctions ) > 0 ) { ?>
+$uwa_per_page     = apply_filters( 'woo_ua_myaccount_auctions_per_page', 10 );
+$uwa_total_items  = count( $my_auctions );
+$uwa_total_pages  = (int) ceil( $uwa_total_items / $uwa_per_page );
+$uwa_current_page = empty( get_query_var( 'my-auction' ) ) ? 1 : absint( get_query_var( 'my-auction' ) );
+if ( $uwa_current_page > $uwa_total_pages ) {
+	$uwa_current_page = $uwa_total_pages;
+}
+if ( $uwa_current_page < 1 ) {
+	$uwa_current_page = 1;
+}
+$my_auctions = array_slice( $my_auctions, ( $uwa_current_page - 1 ) * $uwa_per_page, $uwa_per_page );
+
+if ( $uwa_total_items > 0 ) { ?>
 
 <table class="shop_table shop_table_responsive">
 	<tr>
@@ -60,14 +72,25 @@ if ( count( $my_auctions ) > 0 ) { ?>
 			<?php
 		}
 	}
+	?>
+</table>
+<?php if ( $uwa_total_pages > 1 ) { ?>
+	<div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination">
+		<?php if ( 1 !== $uwa_current_page ) { ?>
+			<a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( wc_get_endpoint_url( 'my-auction', $uwa_current_page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'ultimate-woocommerce-auction' ); ?></a>
+		<?php } ?>
+		<?php if ( $uwa_total_pages !== $uwa_current_page ) { ?>
+			<a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( wc_get_endpoint_url( 'my-auction', $uwa_current_page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'ultimate-woocommerce-auction' ); ?></a>
+		<?php } ?>
+	</div>
+<?php }
 } else {
 		$shop_page_id  = wc_get_page_id( 'shop' );
 		$shop_page_url = $shop_page_id ? get_permalink( $shop_page_id ) : '';
 	?>
-				<div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">		
-			<a class="woocommerce-Button button" href="<?php echo esc_url( $shop_page_url ); ?>"><?php esc_html_e( 'Go shop', 'ultimate-woocommerce-auction' ); ?></a> 
+				<div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">
+			<a class="woocommerce-Button button" href="<?php echo esc_url( $shop_page_url ); ?>"><?php esc_html_e( 'Go shop', 'ultimate-woocommerce-auction' ); ?></a>
 			<?php esc_html_e( 'No auctions available yet.', 'ultimate-woocommerce-auction' ); ?>
-		</div>               
-<?php } ?> 
-</table>
-<?php 
+		</div>
+<?php } ?>
+<?php

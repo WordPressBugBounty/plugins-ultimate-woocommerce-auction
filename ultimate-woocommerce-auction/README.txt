@@ -1,9 +1,9 @@
 === Ultimate Auction for WooCommerce - Excellent WP Auction Plugin ===
 Contributors: nitesh_singh
-Tags: auction, bidding, bids, woocommerce auction, woocommerce auction plugin, wordpress auction
+Tags: auction, bidding, bids, woocommerce auction, woocommerce auction plugin
 Requires at least: 5.5
-Tested up to: 6.9.4
-Stable tag: 2.5.4
+Tested up to: 7.0.2
+Stable tag: 2.5.5
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -479,7 +479,17 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 
 == Changelog ==
 
-= 2.5.4 =	
+= 2.5.5 =
+
+1. Improvements:
+
+	Added pagination to the My Auctions and Watchlist pages on the My Account page.
+
+	Optimized auction bid queries on the My Account pages for better performance.
+
+	Verified compatibility with the latest WordPress and WooCommerce updates.
+
+= 2.5.4 =
 
 1. Improvements:
 
