@@ -2,8 +2,8 @@
 Contributors: nitesh_singh
 Tags: auction, bidding, bids, woocommerce auction, woocommerce auction plugin
 Requires at least: 5.5
-Tested up to: 7.0.2
-Stable tag: 2.5.5
+Tested up to: 7.1.2
+Stable tag: 2.5.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -478,6 +478,16 @@ Answer : Copy paste in your functions.php file of theme as per your requirement.
 7. Frontend: Single product page example
 
 == Changelog ==
+
+= 2.5.6 =
+
+1. Fix:
+
+	Resolved a conflict with FluentCRM where auction front-end scripts were loading on admin pages and causing notice issues.
+
+2. Improvement:
+
+	Verified compatibility with WordPress 7.1.2 and WooCommerce 11.1.2.
 
 = 2.5.5 =
 

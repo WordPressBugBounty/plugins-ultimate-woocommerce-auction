@@ -91,6 +91,9 @@ class UWA_Scripts {
 	 */
 	public function uwa_register_front_scripts( $hook_sufix ) {
 		// Register globally scripts
+		if ( is_admin() ) {
+			return;
+		}
 		wp_register_script( 'uwa-front', WOO_UA_ASSETS_URL . 'js/uwa-front.js', array( 'jquery' ), WOO_UA_VERSION );
 
 		wp_register_script( 'uwa-jquery-countdown', WOO_UA_ASSETS_URL . 'js/jquery.countdown.min.js', array( 'jquery' ), WOO_UA_VERSION, false );
